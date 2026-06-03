@@ -83,10 +83,11 @@ commit: ## Commit all changes. Usage: make commit msg='your message'
 	git commit -m "$(msg)"
 	@echo "$(GREEN)Committed$(RESET)"
 
-commit-push: commit ## Commit and push
+commit-push: commit push
+	
+push: 
 	git push -u origin HEAD
 	@echo "$(GREEN)Pushed$(RESET)"
-
 # ==================================================================================
 # ARCHITECTURE CHECKS
 # ==================================================================================
