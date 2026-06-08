@@ -1,7 +1,9 @@
 package domain
 
 import (
+	"errors"
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/google/uuid"
@@ -23,6 +25,9 @@ const (
 	StatusFailed   Status = "failed"
 )
 
+var ErrTaskNotFound = errors.New("task not found")
+var ErrTaskFailed = errors.New("task failed")
+
 func (s Status) String() string { return string(s) }
 
 type Priority string
@@ -34,7 +39,7 @@ const (
 )
 
 func ParsePriority(s string) (Priority, error) {
-	switch s {
+	switch strings.ToLower(s) {
 	case "low":
 		return PriorityLow, nil
 	case "medium":
@@ -55,6 +60,12 @@ type Task struct {
 	Status    Status
 	CreatedAt time.Time
 	UpdatedAt time.Time
+}
+
+type UpdateTaskDTO struct {
+	Title    *string
+	Priority *string
+	Status   *Status
 }
 
 func NewTask(title string, priority Priority) (*Task, error) {

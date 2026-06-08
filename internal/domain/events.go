@@ -6,6 +6,7 @@ type EventType string
 
 const (
 	EventTaskCreated EventType = "task.created"
+	EventTaskUpdated EventType = "task.updated"
 	EventTaskDone    EventType = "task.done"
 	EventTaskFailed  EventType = "task.failed"
 )
