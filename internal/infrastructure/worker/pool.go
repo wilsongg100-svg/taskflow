@@ -56,7 +56,8 @@ func (p *Pool) worker() {
 	defer p.wg.Done()
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	for task := range p.jobChan {
-
+		startTime := time.Now()
+		fmt.Printf("Engine: Starting task %s (Priority: %s)\n", task.ID, task.Priority)
 		// Random sleep between 1 and 5 seconds
 		sleepTime := time.Duration(r.Intn(5)+1) * time.Second
 		select {
@@ -73,6 +74,8 @@ func (p *Pool) worker() {
 			}
 			p.resultChan <- Result{TaskID: task.ID, Success: success, Err: err}
 		}
+		endTime := time.Now()
+		fmt.Printf("Engine: Task %s completed in %v\n", task.ID, endTime.Sub(startTime))
 	}
 }
 

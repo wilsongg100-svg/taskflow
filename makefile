@@ -118,7 +118,7 @@ task-status: build ## Get task status. Usage: make task-status id=<task-id>
 	fi
 	@$(BINARY) status $(id)
 
-task-start: build ## Start the worker pool. Usage: make task-start workers=5
+task-start: build ## Start the worker pool (interactive)
 	@$(BINARY) start --workers $(or $(workers),3)
 
 # ==================================================================================
