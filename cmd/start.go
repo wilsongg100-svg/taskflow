@@ -85,7 +85,11 @@ func handleInput(ctx context.Context, line string) {
 		fmt.Printf("✓ Starting test: creating and submitting tasks...\n")
 		taskCount := 5
 		if len(parts) > 1 {
-			fmt.Sscanf(parts[1], "%d", &taskCount)
+			_, err := fmt.Sscanf(parts[1], "%d", &taskCount)
+			if err != nil {
+				fmt.Printf("Error parsing task count: %v\n", err)
+				return
+			}
 		}
 		tasks := make([]*domain.Task, taskCount)
 		for i := 0; i < taskCount; i++ {
